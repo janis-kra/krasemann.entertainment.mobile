@@ -7,7 +7,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "mobx": "^2.6.3",
+    "mobx-react": "^4.0.3",
     "react": "15.4.1",
+    "react-dom": "^15.4.1",
     "react-native": "^0.38.0"
   },
   "jest": {
