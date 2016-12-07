@@ -12,8 +12,8 @@ import Radio from '../models/Radio';
 class Main {
   @observable radio = new Radio();
 
-  @action startRadio () {
-    console.log(`starting stream`);
+  @action startRadio (station, name) {
+    console.log(`starting stream ${station.name} via ${station.url}`);
   }
 }
 

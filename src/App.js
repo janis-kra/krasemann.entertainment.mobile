@@ -16,7 +16,11 @@ class App extends Component {
 
   renderStations (stations) {
     return stations.map(station => (
-      <Picker.Item label={station.name} value={station.url} />
+      <Picker.Item
+        key={station.name}
+        label={station.name}
+        value={station}
+      />
     ));
   }
 
@@ -28,6 +32,7 @@ class App extends Component {
         <View>
           <Text>Krasemann Radio</Text>
           <Picker
+            onValueChange={this.mainStore.startRadio}
             >
             {stations}
           </Picker>
