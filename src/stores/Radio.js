@@ -1,4 +1,12 @@
-import { observable } from 'mobx';
+/**
+ * Main store of the radio mobile app
+ * @flow
+ */
+import {
+  action,
+  computed,
+  observable
+} from 'mobx';
 
 const DEFAULT_STATION = {
   name: 'Bitte Stream wählen',
@@ -19,4 +27,13 @@ export default class Radio {
       url: 'https://www.wdr.de/wdrlive/media/hls/wdr2-rhein-und-ruhr.m3u8'
     }
   ];
+
+  findStation (url) {
+    return this.stations.find((station) => station.url === url);
+  }
+
+  @action startRadio (url) {
+    this.station = this.findStation(url);
+    console.log(`starting stream ${this.station.name} via ${this.station.url}`);
+  }
 }

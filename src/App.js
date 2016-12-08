@@ -8,31 +8,32 @@ import {
   View
 } from 'react-native';
 
-import MainStore from './stores/Main';
+import Radio from './stores/Radio';
 
 @observer
 class App extends Component {
-  mainStore = new MainStore();
+  radio = new Radio();
 
   renderStations (stations) {
     return stations.map(station => (
       <Picker.Item
         key={station.name}
         label={station.name}
-        value={station}
+        value={station.url}
       />
     ));
   }
 
   render () {
-    const mainStore = this.mainStore;
-    const stations = this.renderStations(mainStore.radio.stations);
+    const stations = this.renderStations(this.radio.stations);
     return (
-      <Provider mainStore={mainStore}>
+      <Provider mainStore={this.radio}>
         <View>
           <Text>Krasemann Radio</Text>
+          <Text>Aktuell: {this.radio.station.name}</Text>
           <Picker
-            onValueChange={this.mainStore.startRadio}
+            selectedValue={this.radio.station.url}
+            onValueChange={(station) => { this.radio.startRadio(station); }}
             >
             {stations}
           </Picker>
