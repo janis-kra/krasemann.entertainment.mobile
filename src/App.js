@@ -3,13 +3,13 @@ import { observer } from 'mobx-react/native';
 import {
   Container,
   Content,
-  Header,
   List,
   ListItem,
-  Text,
-  Title
+  Text
 } from 'native-base';
 import React, { Component } from 'react';
+
+import Header from './Header';
 import Radio from './stores/Radio';
 
 @observer
@@ -40,10 +40,8 @@ class App extends Component {
     return (
       <Provider mainStore={this.radio}>
         <Container>
-          <Header>
-            <Title>Krasemann Radio</Title>
-          </Header>
           <Content>
+            <Header />
             <Text>Aktuell: {this.radio.station.name}</Text>
             <List
               dataArray={stations}
