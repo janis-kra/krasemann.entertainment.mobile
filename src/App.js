@@ -1,8 +1,7 @@
 import { Provider } from 'mobx-react';
-import { observer } from 'mobx-react/native'
+import { observer } from 'mobx-react/native';
 import React, { Component } from 'react';
 import {
-  Item,
   Picker,
   Text,
   View
@@ -12,9 +11,8 @@ import Radio from './stores/Radio';
 
 @observer
 class App extends Component {
-  radio = new Radio();
 
-  renderStations (stations) {
+  static renderStations (stations) {
     return stations.map(station => (
       <Picker.Item
         key={station.name}
@@ -23,6 +21,8 @@ class App extends Component {
       />
     ));
   }
+
+  radio = new Radio();
 
   render () {
     const stations = this.renderStations(this.radio.stations);
@@ -34,7 +34,7 @@ class App extends Component {
           <Picker
             selectedValue={this.radio.station.url}
             onValueChange={(station) => { this.radio.startRadio(station); }}
-            >
+          >
             {stations}
           </Picker>
         </View>
