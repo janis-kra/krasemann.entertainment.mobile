@@ -26,7 +26,14 @@ class App extends Component {
     );
   }
 
-  radio = new Radio();
+  constructor () {
+    super();
+    this.radio = new Radio();
+  }
+
+  componentWillMount () {
+    this.radio.loadStations();
+  }
 
   render () {
     const stations = this.radio.stations.map(station => station);
@@ -49,8 +56,7 @@ class App extends Component {
                 </ListItem>
               )
               }
-            >
-            </List>
+            />
           </Content>
         </Container>
       </Provider>
