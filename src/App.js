@@ -1,43 +1,58 @@
 import { Provider } from 'mobx-react';
 import { observer } from 'mobx-react/native';
-import React, { Component } from 'react';
 import {
-  Picker,
+  Container,
+  Content,
+  Header,
+  List,
+  ListItem,
   Text,
-  View
-} from 'react-native';
-
+  Title
+} from 'native-base';
+import React, { Component } from 'react';
 import Radio from './stores/Radio';
 
 @observer
 class App extends Component {
 
-  static renderStations (stations) {
-    return stations.map(station => (
-      <Picker.Item
-        key={station.name}
-        label={station.name}
-        value={station.url}
-      />
-    ));
+  static renderStations (station) {
+    return (
+      <ListItem
+        button
+        onPress={() => { this.radio.startRadio(station); }}
+      >
+        <Text>{station.name}</Text>
+      </ListItem>
+    );
   }
 
   radio = new Radio();
 
   render () {
-    const stations = this.renderStations(this.radio.stations);
+    const stations = this.radio.stations.map(station => station);
     return (
       <Provider mainStore={this.radio}>
-        <View>
-          <Text>Krasemann Radio</Text>
-          <Text>Aktuell: {this.radio.station.name}</Text>
-          <Picker
-            selectedValue={this.radio.station.url}
-            onValueChange={(station) => { this.radio.startRadio(station); }}
-          >
-            {stations}
-          </Picker>
-        </View>
+        <Container>
+          <Header>
+            <Title>Krasemann Radio</Title>
+          </Header>
+          <Content>
+            <Text>Aktuell: {this.radio.station.name}</Text>
+            <List
+              dataArray={stations}
+              renderRow={station => (
+                <ListItem
+                  button
+                  onPress={() => { this.radio.startRadio(station); }}
+                >
+                  <Text>{station.name}</Text>
+                </ListItem>
+              )
+              }
+            >
+            </List>
+          </Content>
+        </Container>
       </Provider>
     );
   }

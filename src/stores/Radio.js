@@ -8,16 +8,10 @@ import {
   observable
 } from 'mobx';
 
-const DEFAULT_STATION = {
-  name: 'Bitte Stream wählen',
-  url: 'http://localhost'
-};
-
 export default class Radio {
   radioServiceUrl = '';
-  @observable station = DEFAULT_STATION;
+  @observable station = {};
   @observable stations = [
-    DEFAULT_STATION,
     {
       name: '1live',
       url: 'http://1live.akacast.akamaistream.net/7/706/119434/v1/gnl.akacast.akamaistream.net/1live'
@@ -32,8 +26,8 @@ export default class Radio {
     return this.stations.find((station) => station.url === url);
   }
 
-  @action startRadio (url) {
-    this.station = this.findStation(url);
-    console.log(`starting stream ${this.station.name} via ${this.station.url}`);
+  @action startRadio (station) {
+    this.station = station;
+    console.log(`starting stream ${station.name} via ${station.url}`);
   }
 }
