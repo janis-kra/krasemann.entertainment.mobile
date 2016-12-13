@@ -1,3 +1,6 @@
 {
-  "extends": "eslint-config-janiskra/react"
+  "extends": "eslint-config-janiskra/react",
+  "globals": {
+    "fetch": true
+  }
 }

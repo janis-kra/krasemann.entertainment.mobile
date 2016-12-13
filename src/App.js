@@ -2,29 +2,16 @@ import { Provider } from 'mobx-react';
 import { observer } from 'mobx-react/native';
 import {
   Container,
-  Content,
-  List,
-  ListItem,
-  Text
+  Content
 } from 'native-base';
 import React, { Component } from 'react';
 
 import Header from './Header';
 import Radio from './stores/Radio';
+import Stations from './Stations';
+import Status from './Status';
 
-@observer
 class App extends Component {
-
-  static renderStations (station) {
-    return (
-      <ListItem
-        button
-        onPress={() => { this.radio.startRadio(station); }}
-      >
-        <Text>{station.name}</Text>
-      </ListItem>
-    );
-  }
 
   constructor () {
     super();
@@ -36,25 +23,14 @@ class App extends Component {
   }
 
   render () {
-    const stations = this.radio.stations.map(station => station);
+    const radio = this.radio;
     return (
-      <Provider mainStore={this.radio}>
+      <Provider mainStore={radio}>
         <Container>
           <Content>
             <Header />
-            <Text>Aktuell: {this.radio.station.name}</Text>
-            <List
-              dataArray={stations}
-              renderRow={station => (
-                <ListItem
-                  button
-                  onPress={() => { this.radio.startRadio(station); }}
-                >
-                  <Text>{station.name}</Text>
-                </ListItem>
-              )
-              }
-            />
+            <Status currentStation={radio.currentStation} />
+            <Stations radio={radio} />
           </Content>
         </Container>
       </Provider>
@@ -62,4 +38,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default observer(App);
