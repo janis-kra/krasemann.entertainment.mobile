@@ -3,9 +3,11 @@
  * @flow
  */
 import {
-  PLAY,
+  PLAYING,
   RECEIVE_STATIONS,
-  REQUEST_STATIONS
+  REQUEST_PLAY,
+  REQUEST_STATIONS,
+  STOP
 } from './actions';
 
 const INITIAL_STATE = {
@@ -16,19 +18,20 @@ const INITIAL_STATE = {
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case PLAY:
-      return Object.assign({}, state, {
-        currentStation: action.station
-      });
+    case PLAYING:
+      return { ...state, playing: true };
+    case REQUEST_PLAY:
+      return { ...state, playing: false, currentStation: action.station };
     case RECEIVE_STATIONS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loading: false,
         stations: action.stations
-      });
+      };
     case REQUEST_STATIONS:
-      return Object.assign({}, state, {
-        loading: true
-      });
+      return { ...state, loading: true };
+    case STOP:
+      return { ...state, playing: false };
     default:
       return state;
   }

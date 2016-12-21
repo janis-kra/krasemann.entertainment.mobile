@@ -5,15 +5,21 @@ import {
 } from 'native-base';
 import React, { PropTypes } from 'react';
 
-const Station = ({ isCurrent, play, station }) => (
+const Station = ({ isCurrent, isPlaying, play, station, stop }) => (
   <ListItem
     iconLeft
     button
-    onPress={() => { play(station); }}
+    onPress={() => {
+      if (isCurrent) {
+        stop();
+      } else {
+        play(station);
+      }
+    }}
   >
     {
       <Icon
-        name={isCurrent ? 'ios-pause' : 'ios-play'}
+        name={isCurrent && isPlaying ? 'ios-pause' : 'ios-play'}
         style={{ color: '#0A69FE' }}
       />
     }
@@ -23,7 +29,9 @@ const Station = ({ isCurrent, play, station }) => (
 
 Station.propTypes = {
   isCurrent: PropTypes.bool,
+  isPlaying: PropTypes.bool,
   play: PropTypes.func.isRequired,
+  stop: PropTypes.func.isRequired,
   station: PropTypes.object.isRequired
 };
 

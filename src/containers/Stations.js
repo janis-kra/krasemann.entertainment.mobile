@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
-import { play } from '../actions';
+import { play, stop } from '../actions';
 import StationList from '../components/StationList';
 
 const mapStateToProps = state => ({
   currentStation: state.currentStation,
-  stations: state.stations
+  stations: state.stations,
+  isPlaying: state.playing
 });
 
 const mapDispatchToProps = dispatch => ({
-  play: station => dispatch(play(station))
+  play: station => dispatch(play(station)),
+  stop: () => dispatch(stop())
 });
 
 export default connect(
