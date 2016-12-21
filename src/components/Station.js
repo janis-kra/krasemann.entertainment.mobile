@@ -7,6 +7,7 @@ import React, { PropTypes } from 'react';
 
 const Station = ({ isCurrent, play, station }) => (
   <ListItem
+    iconLeft
     button
     onPress={() => { play(station); }}
   >
