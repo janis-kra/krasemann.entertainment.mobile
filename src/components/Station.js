@@ -1,4 +1,5 @@
 import {
+  Icon,
   ListItem,
   Text
 } from 'native-base';
@@ -9,8 +10,13 @@ const Station = ({ isCurrent, play, station }) => (
     button
     onPress={() => { play(station); }}
   >
+    {
+      <Icon
+        name={isCurrent ? 'ios-pause' : 'ios-play'}
+        style={{ color: '#0A69FE' }}
+      />
+    }
     <Text>{station.name}</Text>
-    {isCurrent && <Text> (playing)</Text>}
   </ListItem>
 );
 
