@@ -1,41 +1,37 @@
-import { Provider } from 'mobx-react';
-import { observer } from 'mobx-react/native';
+import { Provider } from 'react-redux';
+import {
+  applyMiddleware,
+  createStore
+} from 'redux';
+import thunkMiddleware from 'redux-thunk';
 import {
   Container,
   Content
 } from 'native-base';
-import React, { Component } from 'react';
+import React from 'react';
 
-import Header from './Header';
-import Radio from './stores/Radio';
-import Stations from './Stations';
-import Status from './Status';
+import Header from './components/Header';
+import reducer from './reducer';
+import Stations from './containers/Stations';
+import Status from './containers/Status';
+import { fetchStations } from './actions';
 
-class App extends Component {
+const store = createStore(
+  reducer,
+  applyMiddleware(thunkMiddleware)
+);
+store.dispatch(fetchStations());
 
-  constructor () {
-    super();
-    this.radio = new Radio();
-  }
+const App = () => (
+  <Provider store={store}>
+    <Container>
+      <Content>
+        <Header />
+        <Status />
+        <Stations />
+      </Content>
+    </Container>
+  </Provider>
+);
 
-  componentWillMount () {
-    this.radio.loadStations();
-  }
-
-  render () {
-    const radio = this.radio;
-    return (
-      <Provider mainStore={radio}>
-        <Container>
-          <Content>
-            <Header />
-            <Status currentStation={radio.currentStation} />
-            <Stations radio={radio} />
-          </Content>
-        </Container>
-      </Provider>
-    );
-  }
-}
-
-export default observer(App);
+export default App;
