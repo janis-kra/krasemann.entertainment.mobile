@@ -1,17 +1,20 @@
 import {
-  Text
+  Spinner,
+  View
 } from 'native-base';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
-  stationName: state.currentStation.name
+  loading: state.loading
 });
 
-const Status = ({ stationName }) => (
-  <Text>Es läuft: {stationName}</Text>
+const Status = ({ loading }) => (
+  <View>
+    {loading && <Spinner />}
+  </View>
 );
 
-Status.propTypes = { stationName: PropTypes.string.isRequired };
+Status.propTypes = { loading: PropTypes.bool.isRequired };
 
 export default connect(mapStateToProps)(Status);
