@@ -5,16 +5,19 @@ import {
 } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {
+  Button,
   Container,
-  Content
+  Content,
+  Header,
+  Title
 } from 'native-base';
 import React from 'react';
 
 import reducer from './reducer';
-import Header from './components/Header';
+import PauseIcon from './components/PauseIcon';
 import Stations from './containers/Stations';
 import Status from './containers/Status';
-import { fetchStations } from './actions';
+import { fetchStations, stop } from './actions';
 
 const store = createStore(
   reducer,
@@ -25,8 +28,14 @@ store.dispatch(fetchStations());
 const App = () => (
   <Provider store={store}>
     <Container>
+      <Header>
+        <Button transparent> </Button>
+        <Title>Krasemann Radio</Title>
+        <Button transparent onPress={() => store.dispatch(stop())}>
+          <PauseIcon />
+        </Button>
+      </Header>
       <Content>
-        <Header></Header>
         <Status />
         <Stations />
       </Content>
