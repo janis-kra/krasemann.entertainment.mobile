@@ -10,19 +10,17 @@ const Station = ({ isCurrent, isPlaying, play, station, stop }) => (
     iconLeft
     button
     onPress={() => {
-      if (isCurrent) {
+      if (isCurrent && isPlaying) {
         stop();
       } else {
         play(station);
       }
     }}
   >
-    {
-      <Icon
-        name={isCurrent && isPlaying ? 'ios-pause' : 'ios-play'}
-        style={{ color: '#0A69FE' }}
-      />
-    }
+    <Icon
+      name={isCurrent && isPlaying ? 'ios-pause' : 'ios-play'}
+      style={{ color: '#0A69FE' }}
+    />
     <Text>{station.name}</Text>
   </ListItem>
 );

@@ -6,13 +6,12 @@ import {
 import thunkMiddleware from 'redux-thunk';
 import {
   Container,
-  Content,
-  Header,
-  Title
+  Content
 } from 'native-base';
 import React from 'react';
 
 import reducer from './reducer';
+import Header from './components/Header';
 import Stations from './containers/Stations';
 import Status from './containers/Status';
 import { fetchStations } from './actions';
@@ -26,10 +25,8 @@ store.dispatch(fetchStations());
 const App = () => (
   <Provider store={store}>
     <Container>
-      <Header>
-        <Title>Krasemann Radio</Title>
-      </Header>
       <Content>
+        <Header></Header>
         <Status />
         <Stations />
       </Content>
