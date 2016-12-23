@@ -1,4 +1,4 @@
-const RADIO_SERVICE_URL = 'http://192.168.0.234:3000';
+const RADIO_SERVICE_URL = 'http://192.168.2.222:3000';
 const STATION_SERVICE_URL = 'https://radio-stations.herokuapp.com';
 
 export const PLAYING = 'playing';

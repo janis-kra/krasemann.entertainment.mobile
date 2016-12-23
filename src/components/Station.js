@@ -19,7 +19,7 @@ const Station = ({ isCurrent, isPlaying, play, station, stop }) => (
   >
     <Icon
       name={isCurrent && isPlaying ? 'ios-pause' : 'ios-play'}
-      style={{ color: '#0A69FE' }}
+      style={{ color: '#2196f3' }}
     />
     <Text>{station.name}</Text>
   </ListItem>
