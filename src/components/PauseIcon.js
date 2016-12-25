@@ -1,17 +1,17 @@
-import { Icon, View } from 'native-base';
+import { View } from 'native-base';
 import React, { PropTypes } from 'react';
-import { Platform } from 'react-native';
 import { connect } from 'react-redux';
+
+import HeaderIcon from './HeaderIcon';
 
 const mapStateToProps = state => ({
   isPlaying: state.playing
 });
 
 const PauseIcon = ({ isPlaying }) => {
-  const c = (Platform.OS === 'ios') ? '#2196f3' : '#fafafa';
   let icon;
   if (isPlaying) {
-    icon = <Icon name={'ios-pause'} style={{ color: c }} />;
+    icon = <HeaderIcon iconName={'ios-pause'} />;
   } else {
     icon = <View />;
   }

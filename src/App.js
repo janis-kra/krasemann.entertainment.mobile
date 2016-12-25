@@ -14,22 +14,30 @@ import {
 import React from 'react';
 
 import reducer from './reducer';
+import HeaderIcon from './components/HeaderIcon';
 import PauseIcon from './components/PauseIcon';
 import Stations from './containers/Stations';
 import Status from './containers/Status';
-import { fetchStations, stop } from './actions';
+import {
+  fetchStations,
+  refresh,
+  stop
+} from './actions';
 
 const store = createStore(
   reducer,
   applyMiddleware(thunkMiddleware)
 );
 store.dispatch(fetchStations());
+store.dispatch(refresh());
 
 const App = () => (
   <Provider store={store}>
     <Container>
       <Header>
-        <Button transparent> </Button>
+        <Button transparent onPress={() => store.dispatch(refresh())}>
+          <HeaderIcon iconName="ios-refresh" />
+        </Button>
         <Title>Krasemann Radio</Title>
         <Button transparent onPress={() => store.dispatch(stop())}>
           <PauseIcon />

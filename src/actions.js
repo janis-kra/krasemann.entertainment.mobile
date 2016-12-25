@@ -3,7 +3,9 @@ const STATION_SERVICE_URL = 'https://radio-stations.herokuapp.com';
 
 export const PLAYING = 'playing';
 export const RECEIVE_STATIONS = 'receiveStations';
+export const RECEIVE_REFRESH = 'receiveRefresh';
 export const REQUEST_PLAY = 'requestPlay';
+export const REQUEST_REFRESH = 'requestRefresh';
 export const REQUEST_STATIONS = 'requestStations';
 export const STOP = 'stop';
 
@@ -45,3 +47,23 @@ export const stop = () => {
   fetch(`${RADIO_SERVICE_URL}/stop`, { method: 'PUT' });
   return { type: STOP };
 };
+
+export const requestRefresh = () => ({ type: REQUEST_REFRESH });
+
+export const receiveRefresh = (current, running) => ({
+  type: RECEIVE_REFRESH,
+  playing: running,
+  currentUrl: current.url
+});
+
+export const refresh = () => (
+  (dispatch) => {
+    dispatch(requestRefresh());
+    const fetchCurrent =
+      fetch(`${RADIO_SERVICE_URL}/current`).then(res => res.json());
+    const fetchRunning =
+      fetch(`${RADIO_SERVICE_URL}/running`).then(res => res.json());
+    return Promise.all([fetchCurrent, fetchRunning])
+      .then(state => dispatch(receiveRefresh(state[0], state[1])));
+  }
+);
